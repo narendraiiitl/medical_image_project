@@ -9,7 +9,7 @@ import create_model as cm
 st.title("Medical Image Report Generator")
 
 st.markdown("<small>Major Project - SRMCEM </small>",unsafe_allow_html=True)
-st.markdown("[<small>Github</small>](https://github.com/)",
+st.markdown("[<small>Github</small>](https://github.com/)       ",
 unsafe_allow_html=True)
 st.markdown("\nThis app will generate impression part of an X-ray report.\nYou can upload 2 X-rays that are front view and side view of chest of the same individual.")
 st.markdown("The 2nd X-ray is optional.")
@@ -23,7 +23,6 @@ if image_1:
 
 col1,col2 = st.beta_columns(2)
 predict_button = col1.button('Predict on uploaded files')
-test_data = col2.button('Predict on sample data')
 
 @st.cache
 def create_model():
@@ -48,8 +47,6 @@ def predict(image_1,image_2,model_tokenizer,predict_button = predict_button):
             st.markdown(" ### **Impression:**")
             impression = st.empty()
             impression.write(caption[0])
-            time_taken = "Time Taken for prediction: %i seconds"%(time.process_time()-start)
-            st.write(time_taken)
             del image_1,image_2
         else:
             st.markdown("## Upload an Image")
@@ -71,11 +68,7 @@ def predict_sample(model_tokenizer,folder = './test_images'):
 model_tokenizer = create_model()
 
 
-
-if test_data:
-    predict_sample(model_tokenizer)
-else:
-    predict(image_1,image_2,model_tokenizer)
+predict(image_1,image_2,model_tokenizer)
 
 
 
